@@ -54,7 +54,7 @@ Soit
 
 \[
 	\begin{aligned}
-		&-\kappa\frac{\dt}{\dx^2}U_{n-1}^{[k+1]}+(1-2\kappa\frac{\dt}{\dx^2})U_{n}^{[k+1]}-\kappa\frac{\dt}{\dx^2}U_{n+1}^{[k+1]} \\
+		&-\kappa\frac{\dt}{\dx^2}U_{n-1}^{[k+1]}+(1+2\kappa\frac{\dt}{\dx^2})U_{n}^{[k+1]}-\kappa\frac{\dt}{\dx^2}U_{n+1}^{[k+1]} \\
 		&=c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1)U_{n-1}^{[k]} + (1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}})U_n^{[k]} + c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1)U_{n+1}^{[k]}
 	\end{aligned}
 \]
@@ -66,12 +66,12 @@ Cela donne donc
 \[
 	N =
 	\begin{bmatrix}
-		(1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0 & \hdots & 0 & -\kappa\frac{\dt}{\dx^2} \\
-		-\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0\\
+		(1+2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0 & \hdots & 0 & -\kappa\frac{\dt}{\dx^2} \\
+		-\kappa\frac{\dt}{\dx^2} & (1+2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0\\
 		0 & \ddots & \ddots &  \ddots & \ddots \\
-		\vdots & \ddots & -\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0 \\
+		\vdots & \ddots & -\kappa\frac{\dt}{\dx^2} & (1+2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0 \\
 		0 \\
-		-\kappa\frac{\dt}{\dx^2} & 0 & \hdots & 0 & -\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2})
+		-\kappa\frac{\dt}{\dx^2} & 0 & \hdots & 0 & -\kappa\frac{\dt}{\dx^2} & (1+2\kappa\frac{\dt}{\dx^2})
 	\end{bmatrix}
 \]
 $M$ possede une structure similaire mais avec des coefficients differents:
@@ -83,4 +83,23 @@ $M$ possede une structure similaire mais avec des coefficients differents:
 		0 & \ddots & \ddots &  \ddots & \ddots \\
 	\end{bmatrix}
 \]
+
+\paragraph{Question 2}
+
+On voit bien que $N^T=N$ donc $N$ est symetrique.
+De plus $N$ est une matrice circulante, et posant $a=1+2\kappa\frac{\dt}{\dx^2}$ et $b=-\kappa\frac{\dt}{\dx^2}$ on a le polynome associe a $N$ qui est $f(x)=a+b\left(x+x^{(N_x-1)}\right)$.
+
+Les valeurs propres de $N$ sont alors pour $k=0,\dots,n-1$ $\lambda_k=f\left(\exp\left(i\frac{2\pi k}{N_x}\right)\right)$.
+Soit $\lambda_k=a+b\left(\exp\left(i\frac{2\pi k}{N_x}\right)+\exp\left(i\frac{2\pi k(N_x-1)}{N_x}\right)\right)$.
+
+Or $\exp\left(i\frac{2\pi k(N_x-1)}{N_x}\right)=\exp\left(i(-\frac{2\pi k}{N_x}+2\pi k)\right)=\exp\left(-i\frac{2\pi k}{N_x}\right)$
+
+On a donc $\lambda_k=a+b\left(\exp\left(i\frac{2\pi k}{N_x}\right)+\exp\left(-i\frac{2\pi k}{N_x}\right)\right)=a+2b\cos(\frac{2\pi k}{N_x})$
+
+Cela donne $\lambda_k = 1 + 2\kappa\frac{\dt}{\dx^2}\left(1-\cos\left(\frac{2\pi k}{N_x}\right)\right)$
+
+Cette expression est strictement positive puisque $k < N_x$. Donc $\lambda_k > 0$ et $N$ est symetrique definie positive.
+
+\paragraph{Question 3}
+
 \end{document}
