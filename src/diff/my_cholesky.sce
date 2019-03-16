@@ -42,6 +42,8 @@ function [y]=down_sweep_cholesky(A,x)
 endfunction
 
 function [U]=my_cholesky(N,S)
+	// La methode perd son interet quand on doit appeler la factorisation a chaque etape
+	// Sauf si elle est gardee en memoire sans qu'on le demande
 	T = cholesky_fact(N)
 	y = down_sweep_cholesky(T, S)
 	U = up_sweep_cholesky(T', y)
