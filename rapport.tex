@@ -44,8 +44,8 @@ En utilisant les notations introduites $(1)$ se reecrit pour $x=n\dx$ et $t=k\dt
 
 \[
 	\begin{aligned}
-		U^{[k+1]}_n ={} & U_n^{[k]} - c(x)\frac{\dt}{2\dx}(U_{n+1}^{[k]}-U_{n-1}^{[k]}) \\
-					    & +c{(x)}^2\frac{\dt^{2}}{2\dx^{2}}(U_{n+1}^{[k]}-2U_{n}^{[k]}+U_{n-1}^{[k]}) \\
+		U^{[k+1]}_n ={} & U_n^{[k]} - c(n\dx)\frac{\dt}{2\dx}(U_{n+1}^{[k]}-U_{n-1}^{[k]}) \\
+		& +c{(n\dx)}^2\frac{\dt^{2}}{2\dx^{2}}(U_{n+1}^{[k]}-2U_{n}^{[k]}+U_{n-1}^{[k]}) \\
 						& +\kappa\frac{\dt}{\dx^2}(U_{n+1}^{[k+1]}-2U_{n}^{[k+1]}+U_{n-1}^{[k+1]})
 	\end{aligned}
 \]
@@ -55,7 +55,7 @@ Soit
 \[
 	\begin{aligned}
 		&-\kappa\frac{\dt}{\dx^2}U_{n-1}^{[k+1]}+(1+2\kappa\frac{\dt}{\dx^2})U_{n}^{[k+1]}-\kappa\frac{\dt}{\dx^2}U_{n+1}^{[k+1]} \\
-		&=c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1)U_{n-1}^{[k]} + (1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}})U_n^{[k]} + c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1)U_{n+1}^{[k]}
+		&=c(n\dx)\frac{\dt}{2\dx}(c(n\dx)\frac{\dt}{\dx}+1)U_{n-1}^{[k]} + (1-c{(n\dx)}^2\frac{\dt^{2}}{\dx^{2}})U_n^{[k]} + c(n\dx)\frac{\dt}{2\dx}(c(n\dx)\frac{\dt}{\dx}-1)U_{n+1}^{[k]}
 	\end{aligned}
 \]
 
@@ -78,8 +78,8 @@ $M$ possede une structure similaire mais avec des coefficients differents:
 \[
 	M =
 	\begin{bmatrix}
-		(1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}}) & c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1) & 0 & \hdots & 0 & c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1)  \\
-		c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1) & (1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}}) & c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1) & 0\\
+		(1-c{(0)}^2\frac{\dt^{2}}{\dx^{2}}) & c(0)\frac{\dt}{2\dx}(c(0)\frac{\dt}{\dx}-1) & \hdots & c(0)\frac{\dt}{2\dx}(c(0)\frac{\dt}{\dx}+1)  \\
+		c(n\dx)\frac{\dt}{2\dx}(c(n\dx)\frac{\dt}{\dx}+1) & (1-c{(n\dx)}^2\frac{\dt^{2}}{\dx^{2}}) & c(n\dx)\frac{\dt}{2\dx}(c(n\dx)\frac{\dt}{\dx}-1) & 0\\
 		0 & \ddots & \ddots &  \ddots & \ddots \\
 	\end{bmatrix}
 \]
