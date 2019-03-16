@@ -59,14 +59,14 @@ Soit
 	\end{aligned}
 \]
 
-On a aussi $U_0^{[k+1]} = U_0^{[k]}$, et on pose $U_{N_x}^{[k]}=U_{0}^{[k]}$.
+On pose $U_{N_x}^{[k]}=U_{0}^{[k]}$ et $U_{-1}^{[k]}=U_{N_x-1}^{[k]}$.
 
 Cela donne donc 
 
 \[
 	N =
 	\begin{bmatrix}
-		1 & 0 & 0 & \hdots & & 0 \\
+		(1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0 & \hdots & 0 & -\kappa\frac{\dt}{\dx^2} \\
 		-\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0\\
 		0 & \ddots & \ddots &  \ddots & \ddots \\
 		\vdots & \ddots & -\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0 \\
@@ -78,7 +78,7 @@ $M$ possede une structure similaire mais avec des coefficients differents:
 \[
 	M =
 	\begin{bmatrix}
-		1 & 0 & 0 & \hdots & & 0 \\
+		(1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}}) & c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1) & 0 & \hdots & 0 & c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1)  \\
 		c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1) & (1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}}) & c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1) & 0\\
 		0 & \ddots & \ddots &  \ddots & \ddots \\
 	\end{bmatrix}
