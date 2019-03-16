@@ -1,10 +1,86 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\newcommand{\dx}{\mathrm{dx}}
+\newcommand{\dt}{\mathrm{dt}}
 
 \begin{document}
 
 \title{Méthode Numériques: Simulation d'écoulement fluide}
-\author{Aurélien Moisson-franckhauser et Quentin Boyer}
+\author{Aurélien Moisson-Franckhauser et Quentin Boyer}
 \maketitle
 
+\section{Resolution de l'equation de transport diffusion}
+
+On discretise l'espace en $N_x$ points et le temps en $N_t$ points. On note alors $\mathrm{dx}=\frac{1}{N_x}$ et $\mathrm{dt}=\frac{1}{N_t}$
+L'equation devient:
+
+
+\begin{equation}
+	\begin{aligned}
+	\phi(x,t+\dt) ={} & \phi(x,t)-c(x)\frac{\dt}{2\dx}(\phi(x+\dx, t)-\phi(x-\dx,t)) \\
+					&+c{(x)}^2\frac{\dt^{2}}{2\dx^{2}}(\phi(x+\dx,t)-2\phi(x, t)+\phi{x-\dx}{t}) \\
+					&+\kappa\frac{\dt}{\dx^2}(\phi(x+\dx,t+\dt)-2\phi(x,t+\dt)+\phi(x-\dx,t+\dt))
+	\end{aligned}
+\end{equation}
+
+
+\paragraph{Question 1}
+On note pour $0 \leq k \le N_t$:
+
+\[U^{[k]}=
+\begin{bmatrix}
+	\phi(0, k\dt) \\
+	\vdots \\
+	\phi(n\dx, k\dt) \\
+	\vdots \\
+	\phi((N_x-1)\dx, k\dt)
+\end{bmatrix}
+\]
+On note $U_n^{[k]}$ la composante $n$ de $U^{[k]}$. On cherche alors $ M,N \in \mathcal{M}_{N_x}(\mathbb{R})$ telles que $NU^{[k+1]}=MU^{[k]}$.
+En utilisant les notations introduites $(1)$ se reecrit pour $x=n\dx$ et $t=k\dt$:
+
+\[
+	\begin{aligned}
+		U^{[k+1]}_n ={} & U_n^{[k]} - c(x)\frac{\dt}{2\dx}(U_{n+1}^{[k]}-U_{n-1}^{[k]}) \\
+					    & +c{(x)}^2\frac{\dt^{2}}{2\dx^{2}}(U_{n+1}^{[k]}-2U_{n}^{[k]}+U_{n-1}^{[k]}) \\
+						& +\kappa\frac{\dt}{\dx^2}(U_{n+1}^{[k+1]}-2U_{n}^{[k+1]}+U_{n-1}^{[k+1]})
+	\end{aligned}
+\]
+
+Soit
+
+\[
+	\begin{aligned}
+		&-\kappa\frac{\dt}{\dx^2}U_{n-1}^{[k+1]}+(1-2\kappa\frac{\dt}{\dx^2})U_{n}^{[k+1]}-\kappa\frac{\dt}{\dx^2}U_{n+1}^{[k+1]} \\
+		&=c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1)U_{n-1}^{[k]} + (1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}})U_n^{[k]} + c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1)U_{n+1}^{[k]}
+	\end{aligned}
+\]
+
+On a aussi $U_0^{[k+1]} = U_0^{[k]}$, et on pose $U_{N_x}^{[k]}=U_{0}^{[k]}$.
+
+Cela donne donc 
+
+\[
+	N =
+	\begin{bmatrix}
+		1 & 0 & 0 & \hdots & & 0 \\
+		-\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0\\
+		0 & \ddots & \ddots &  \ddots & \ddots \\
+		\vdots & \ddots & -\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2}) & -\kappa\frac{\dt}{\dx^2} & 0 \\
+		0 \\
+		-\kappa\frac{\dt}{\dx^2} & 0 & \hdots & 0 & -\kappa\frac{\dt}{\dx^2} & (1-2\kappa\frac{\dt}{\dx^2})
+	\end{bmatrix}
+\]
+$M$ possede une structure similaire mais avec des coefficients differents:
+\[
+	M =
+	\begin{bmatrix}
+		1 & 0 & 0 & \hdots & & 0 \\
+		c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}+1) & (1-c{(x)}^2\frac{\dt^{2}}{\dx^{2}}) & c(x)\frac{\dt}{2\dx}(c(x)\frac{\dt}{\dx}-1) & 0\\
+		0 & \ddots & \ddots &  \ddots & \ddots \\
+	\end{bmatrix}
+\]
 \end{document}
