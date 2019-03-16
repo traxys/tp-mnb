@@ -1,0 +1,2 @@
+rapport:
+	pdflatex rapport.tex
