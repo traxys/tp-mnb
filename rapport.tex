@@ -85,6 +85,7 @@ $M$ possede une structure similaire mais avec des coefficients differents:
 \]
 
 \paragraph{Question 2}
+\subparagraph{Matrice $N$ du systeme}
 
 On voit bien que $N^T=N$ donc $N$ est symetrique.
 De plus $N$ est une matrice circulante, et posant $a=1+2\kappa\frac{\dt}{\dx^2}$ et $b=-\kappa\frac{\dt}{\dx^2}$ on a le polynome associe a $N$ qui est $f(x)=a+b\left(x+x^{(N_x-1)}\right)$.
@@ -99,6 +100,9 @@ On a donc $\lambda_k=a+b\left(\exp\left(i\frac{2\pi k}{N_x}\right)+\exp\left(-i\
 Cela donne $\lambda_k = 1 + 2\kappa\frac{\dt}{\dx^2}\left(1-\cos\left(\frac{2\pi k}{N_x}\right)\right)$
 
 Cette expression est strictement positive puisque $k < N_x$. Donc $\lambda_k > 0$ et $N$ est symetrique definie positive.
+
+\subparagraph{Cholesky} Le fait que la matrice soit symetrique definie positive permet la decomposition de Cholesky. De plus posant $b_k=MU^{[k
+-1]}$, on voit qu'on est amenene a resoudre le systeme $NU^{[k]}=b_k$ avec $N$ constante. On resout donc des systemes avec la meme matrice, mais un second membre different. Cela est donc tres adapte a une decomposition de $N$ pour resoudre le systeme.
 
 \paragraph{Question 3}
 
