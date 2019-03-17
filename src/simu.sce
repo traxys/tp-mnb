@@ -69,8 +69,8 @@ function plot_isocontours(W, figname)
     
     fig = scf(1)
     clf()
-
-    // TODO: display the isocontours
+	
+	contour2d(Ny, Nx, W, -36:6:36)
 
     figname = sprintf("isocontours_%f.png", t)
     xs2png(fig, figname)
