@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 \usepackage{bm}
 
@@ -38,6 +40,7 @@ L'equation devient:
 					&+c{(x)}^2\frac{\dt^{2}}{2\dx^{2}}(\phi(x+\dx,t)-2\phi(x, t)+\phi{x-\dx}{t}) \\
 					&+\kappa\frac{\dt}{\dx^2}(\phi(x+\dx,t+\dt)-2\phi(x,t+\dt)+\phi(x-\dx,t+\dt))
 	\end{aligned}
+	\label{eq:diff}
 \end{equation}
 
 
@@ -54,7 +57,7 @@ On note pour $0 \leq k \le N_t$:
 \end{bmatrix}
 \]
 On note $U_n^{[k]}$ la composante $n$ de $U^{[k]}$. On cherche alors $ M,N \in \mathcal{M}_{N_x}(\mathbb{R})$ telles que $NU^{[k+1]}=MU^{[k]}$.
-En utilisant les notations introduites $(1)$ se reecrit pour $x=n\dx$ et $t=k\dt$:
+En utilisant les notations introduites~(\ref{eq:diff}) se reecrit pour $x=n\dx$ et $t=k\dt$:
 
 \[
 	\begin{aligned}
@@ -118,13 +121,51 @@ Cette expression est strictement positive puisque $k < N_x$. Donc $\lambda_k > 0
 \subparagraph{Cholesky} Le fait que la matrice soit symetrique definie positive permet la decomposition de Cholesky. De plus posant $b_k=MU^{[k
 -1]}$, on voit qu'on est amenene a resoudre le systeme $NU^{[k]}=b_k$ avec $N$ constante. On resout donc des systemes avec la meme matrice, mais un second membre different. Cela est donc tres adapte a une decomposition de $N$ pour resoudre le systeme.
 
-\paragraph{Question 3}
+\paragraph{Question 4}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{conv_kappa_0,01.pdf}
+		\caption{$\kappa=0.01$}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{conv_kappa_0,001.pdf}
+		\caption{$\kappa=0.001$}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{conv_kappa_0,0001.pdf}
+		\caption{$\kappa=0.0001$}
+	\end{subfigure}
+	\caption{Diffusion pour differents $\kappa$}\label{fig:diff1D}
+\end{figure}
+
+On voit dans la figure~\ref{fig:diff1D} qu'il y a une plus grande diffusion plus $\kappa$ est grand. Cela est coherent etant donne que $\kappa$ est le coefficient qui quantifie la diffusion. Le schema semble bien donner la reponse attendue.
+
+\paragraph{Question 5}
+
+En resolvant les equations de diffusion sur les lignes puis les colonnes, grace a un solveur pour les matrices sparses on obtient des courbes montrant bien la diffusion periodique du systeme, comme le montre la figure~\ref{fig:diff2D}.
+
+\begin{figure}
+	\begin{subfigure}[b]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{conv-2D_kappa_0,01_i.png}
+		\caption{$t=0$}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{conv-2D_kappa_0,01_f.png}
+		\caption{$t=t_f$}
+	\end{subfigure}
+	\caption{Diffusion en 2D pour $\kappa=0.01$}\label{fig:diff2D}
+\end{figure}
+
 
 
 \section{Resolution du problème de Poisson}
 
 \paragraph{Question 6}
-En appliquant l'equation (9) aux séries partielles, on a :
+En appliquant l'equation (9) aux séries partielles, on a:
 \begin{equation}
 	\pd{S_{nm}(\psi)}{x^2}(x,y)
     + 
@@ -132,14 +173,14 @@ En appliquant l'equation (9) aux séries partielles, on a :
 	= S_{nm}(f)(x,y)
     \label{eq:poisson}
 \end{equation}
-Et on obtient :
+Et on obtient:
 \begin{equation*}
     \sum_{p=-n}^{n} \sum_{q=-m}^{m} (\kxq^2 + \kyp^2) \hat{\psi}_{pq} e^{+\kyp y} e^{+\kxq x}
 	=
 		\sum_{p=-n}^{n} \sum_{q=-m}^{m}\hat{f}_{pq} e^{+\kyp y} e^{+\kxq x}
 \end{equation*}
 Comme la famille des \(((x, y)\mapsto e^{+\kyp y} e^{+\kxq x})_{(p,q)\in\mathbb N^2}\)
-est libre, on obtient : pour tout \((p,q)\in\mathbb N^2\), \((\kxq^2 + \kyp^2) \hat{\psi}_{pq} = \hat{f}_{pq}\)
+est libre, on obtient: pour tout \((p,q)\in\mathbb N^2\), \((\kxq^2 + \kyp^2) \hat{\psi}_{pq} = \hat{f}_{pq}\)
 \\
 Donc, pour \((p,q)\neq(0,0)\) on trouve \(\hat{\psi}_{pq} = \frac{\hat{f}_{pq}}{\kxq^2 + \kyp^2}\)
 
