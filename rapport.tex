@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
@@ -26,7 +27,9 @@
 
 \title{Méthode Numériques: Simulation d'écoulement fluide}
 \author{Aurélien Moisson-Franckhauser et Quentin Boyer}
+\date{Mars 2019}
 \maketitle
+\tableofcontents
 
 \section{Resolution de l'equation de transport diffusion}
 
@@ -139,7 +142,7 @@ Cette expression est strictement positive puisque $k < N_x$. Donc $\lambda_k > 0
 		\includegraphics[width=\textwidth]{conv_kappa_0,0001.pdf}
 		\caption{$\kappa=0.0001$}
 	\end{subfigure}
-	\caption{Diffusion pour differents $\kappa$}\label{fig:diff1D}
+	\caption{Diffusion en une dimension pour differents $\kappa$}\label{fig:diff1D}
 \end{figure}
 
 On voit dans la figure~\ref{fig:diff1D} qu'il y a une plus grande diffusion plus $\kappa$ est grand. Cela est coherent etant donne que $\kappa$ est le coefficient qui quantifie la diffusion. Le schema semble bien donner la reponse attendue.
@@ -149,11 +152,12 @@ On voit dans la figure~\ref{fig:diff1D} qu'il y a une plus grande diffusion plus
 En resolvant les equations de diffusion sur les lignes puis les colonnes, grace a un solveur pour les matrices sparses on obtient des courbes montrant bien la diffusion periodique du systeme, comme le montre la figure~\ref{fig:diff2D}.
 
 \begin{figure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{conv-2D_kappa_0,01_i.png}
 		\caption{$t=0$}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{conv-2D_kappa_0,01_f.png}
 		\caption{$t=t_f$}
 	\end{subfigure}
@@ -190,5 +194,39 @@ Pour \(\alpha = \frac{1}{8\pi^2}\), on trouve bien :
 	\Delta \hat{\psi}_{\alpha}(x,y) & = 2\times4\pi^2\alpha\sin(2\pi x)\sin(2\pi y)\\
 	& = \sin(2\pi x)\sin(2\pi y)
 \end{align*}
+
+
+\section{Simulation numeriques}
+
+On a les conditions initiales suivantes:
+\begin{align*}
+	\mathbf{u}_x^0 &= \begin{cases}
+		\tanh\left(\rho(y-0.25)\right) & \text{if }y\leq 0.5 \\
+		\tanh\left(\rho(0.75-y)\right) & \text{if }y > 0.5
+	\end{cases} \\
+	\mathbf{u}_y^0 &= \delta\sin(2\pi x)
+\end{align*}
+
+\paragraph{Question 12}
+On a $\pd{\mathbf{u}_y^0}{x}=2\pi\delta\cos(2\pi x)$.
+
+Pour $y \leq 0.5$ on a $\pd{\mathbf{u}_x^0}{y}=\frac{\rho}{\cosh^2(\rho(y-0.25))}$
+
+Pour $y > 0.5$ on a $\pd{\mathbf{u}_x^0}{y}=\frac{-\rho}{\cosh^2(\rho(0.75-y))}$
+
+
+Soit on a:
+\begin{equation*}
+	\omega^0 =
+	\begin{cases}
+		2\pi\delta\cos(2\pi x) - \frac{\rho}{\cosh^2(\rho(y-0.25))} & \text{if }y\leq 0.5 \\
+		2\pi\delta\cos(2\pi x) + \frac{\rho}{\cosh^2(\rho(0.75-y))}  & \text{if }y > 0.5
+	\end{cases}
+\end{equation*}
+
+\begin{appendix}
+  \listoffigures
+\end{appendix}
+
 
 \end{document}

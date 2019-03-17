@@ -8,6 +8,7 @@ dx = Lx/Nx
 dy = Ly/Ny
 X = linspace(0.0, Lx*(Nx-1)/Nx, Nx)
 Y = linspace(0.0, Ly*(Ny-1)/Ny, Ny)
+isoVals = -36:6:36
 
 // Simulation parameters
 T     = 1.50
@@ -15,10 +16,15 @@ nu    = 1e-4
 rho   = 30.0
 delta = 0.05
 
-
 // Initialize vorticity
 function [W] = init_vorticity(y,x)
-    // TODO: initialize vorticity W(x,y)
+	W = 2 * %pi * delta * cos(2 * %pi * x)
+	if y <= 0.5
+		W = W - rho * sech(rho * (y-0.25))^2
+	end
+	if y <= 0.5
+		W = W + rho * sech(rho * (0.75-y))^2
+	end
 endfunction
 
 
@@ -64,8 +70,8 @@ function plot_isocontours(W, figname)
     
     fig = scf(1)
     clf()
-
-    // TODO: display the isocontours
+	
+	contour2d(Ny, Nx, W, isoVals)
 
     figname = sprintf("isocontours_%f.png", t)
     xs2png(fig, figname)
@@ -90,8 +96,8 @@ W = feval(Y, X, init_vorticity)
 while t<T
     // TODO: compute velocity from vorticity
 
-    // TODO: compute new timestep from stability criteria
-    if (t<0.80) & (t+dt>0.80) then
+    dt=min(calcul_dt(cx,dx),calcul_dt(cy,dy));
+	if (t<0.80) & (t+dt>0.80) then
         dt = 0.80-t
     elseif (t<1.20) & (t+dt>1.20) then
         dt = 1.20-t
@@ -103,9 +109,11 @@ while t<T
     plot_fields(W,Ux,Uy,ite)
     plot_isocontours(W,t)
     
-    // TODO: advection-diffusion on vorticity
+    solveur_2D(W, Ux, Uy, Nx, Ny, nu, dt, dx, dy)
  
-    // TODO: update t and ite
+	t = t + dt
+	ite = ite + 1
+	disp(ite)
 end
 plot_fields(W,Ux,Uy,ite)
 plot_isocontours(W,t)
