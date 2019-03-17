@@ -25,10 +25,14 @@ function [psi]=poisson_2d(f, Nx, Ny, Lx, Ly)
     psi_hat = zeros(Ny, Nx)
     for p=1:Ny
         for q=1:Nx
-            psi_hat(p,q) = f_hat(p,q)/(kx(q)^2+ky(p)^2)// TODO 
+            if (p == 1 & q == 1) then
+                psi_hat(p,q) = 0
+            else
+                psi_hat(p,q) = f_hat(p,q)/(kx(q)^2 + ky(p)^2)
+            end
         end
     end
-    // psi_hat(0,0) a été laissé à 0
+    // psi_hat(1,1) a été laissé à 0
     // transformation de fourrier inverse de psi_hat
     psi = real(ifft(psi_hat, "nonsymmetric"))
 endfunction

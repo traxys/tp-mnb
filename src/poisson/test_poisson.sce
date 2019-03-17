@@ -7,7 +7,7 @@ endfunction
 
 // Solution de référence du problème laplacien(psi(x,y)) = f(x,y)
 function [ref]=solution_field(y,x)
-    alpha = 1/8/%pi/%pi
+    alpha = -1/8/%pi/%pi
     ref = alpha*sin(2*%pi*x)*sin(2*%pi*y)
 endfunction
 
@@ -20,6 +20,18 @@ endfunction
 function plot_error(F, Ref, Psi)  
     fig = gcf()
     // TODO: Plotter les fonctions
+    subplot(221)
+    plot3d(F)
+    colorbar(min(F), max(F))
+    subplot(222)
+    plot3d(Ref)
+    colorbar(min(Ref), max(Ref))
+    subplot(223)
+    plot3d(Psi)
+    colorbar(min(Psi), max(Psi))
+    subplot(224)
+    plot3d(Psi-Ref)
+    colorbar(min(Psi-Ref), max(Psi-Ref))
     xs2png(fig, "poisson_error.png")
 endfunction
 
@@ -48,6 +60,7 @@ function test_poisson(Lx, Ly, Nx, Ny)
 
     printf("\n\n  Computing Poisson solution Psi(x,y).")
     Psi = poisson_2d(F, Nx, Ny, Lx, Ly)
+    printf("\n first value is : %.10ef\n", Psi(1,1))
 
     printf("\n  Computing error |Psi-Ref|(x,y).")
     Err = abs(Psi-Ref)
