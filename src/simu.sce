@@ -95,8 +95,8 @@ W = feval(Y, X, init_vorticity)
 while t<T
     // TODO: compute velocity from vorticity
 
-    // TODO: compute new timestep from stability criteria
-    if (t<0.80) & (t+dt>0.80) then
+    dt=min(calcul_dt(cx,dx),calcul_dt(cy,dy));
+	if (t<0.80) & (t+dt>0.80) then
         dt = 0.80-t
     elseif (t<1.20) & (t+dt>1.20) then
         dt = 1.20-t
@@ -108,9 +108,11 @@ while t<T
     plot_fields(W,Ux,Uy,ite)
     plot_isocontours(W,t)
     
-    // TODO: advection-diffusion on vorticity
+    solveur_2D(W, Ux, Uy, Nx, Ny, nu, dt, dx, dy)
  
-    // TODO: update t and ite
+	t = t + dt
+	ite = ite + 1
+	disp(ite)
 end
 plot_fields(W,Ux,Uy,ite)
 plot_isocontours(W,t)
