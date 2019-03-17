@@ -15,10 +15,15 @@ nu    = 1e-4
 rho   = 30.0
 delta = 0.05
 
-
 // Initialize vorticity
 function [W] = init_vorticity(y,x)
-    // TODO: initialize vorticity W(x,y)
+	W = 2 * %pi * delta * cos(2 * %pi * x)
+	if y <= 0.5
+		W = W - rho * sech(rho * (y-0.25))^2
+	end
+	if y <= 0.5
+		W = W + rho * sech(rho * (0.75-y))^2
+	end
 endfunction
 
 
