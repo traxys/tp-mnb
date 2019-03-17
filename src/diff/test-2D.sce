@@ -1,7 +1,7 @@
 
 Nx=100;
 Ny=100;
-nu=0.001
+nu=0.01;
 Lx=1;
 Ly=1;
 Tf=0.5;
@@ -24,6 +24,14 @@ endfunction
 
 exec("dif-conv-2D.sce")
 
-//---------------------
-//TODO affichage graphique
-//--------------------
+function [] = simulate(Nx, Ny, nu, Tf)
+	[cx, cy, phi_i] = get_data(Nx, Ny)
+	phi = advance_time(cx, cy, Nx, Ny, nu, phi_i, Tf)
+
+	scf(0)
+	grayplot(maillage_x, maillage_y, phi_i)
+	scf(1)
+	grayplot(maillage_x, maillage_y, phi)
+endfunction
+
+simulate(Nx, Ny, nu, Tf)

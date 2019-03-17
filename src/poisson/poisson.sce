@@ -2,6 +2,12 @@
 // Retourne la fréquence d'échantillonage de la transformée de Fourier discrète
 function [freqs]=fftfreq(N, L)
     // TODO: Calculer les fréquences d'échantillonage en fonction de L et de la parité de N
+	if modulo(N, 2) == 0 then
+		k = cat(2,linspace(0, N/2-1, N/2), linspace(-N/2, -1, N/2))
+	else
+		k = cat(2,linspace(0, (N-1)/2, (N+1)/2), linspace(-(N-1)/2, -1, (N-1)/2))
+	end
+	freqs = 2*%i*%pi/L * k
 endfunction
 
 
@@ -10,15 +16,20 @@ endfunction
 // Entrée: f de taille (Ny,Nx) sur une domaine de taille (Ly,Lx)
 // Sortie: psi, solution de l'équation
 function [psi]=poisson_2d(f, Nx, Ny, Lx, Ly)
-    kx = // TODO
-    ky = // TODO
-    psi_hat = zeros(Ny,Nx)
+    // calcul des nombres d'ondes
+    kx = fftfreq(Nx, Lx)
+    ky = fftfreq(Ny, Ly)
+    // transformation de fourier de f
     f_hat = fft(f, "nonsymmetric")
+    // calcul de psi_hat
+    psi_hat = zeros(Ny, Nx)
     for p=1:Ny
         for q=1:Nx
-            psi_hat(p,q) = // TODO 
+            psi_hat(p,q) = f_hat(p,q)/(kx^2+ky^2)// TODO 
         end
     end
+    // psi_hat(0,0) a été laissé à 0
+    // transformation de fourrier inverse de psi_hat
     psi = real(ifft(psi_hat, "nonsymmetric"))
 endfunction
 
