@@ -33,7 +33,7 @@ function [psi]=poisson_2d(f, Nx, Ny, Lx, Ly)
         end
     end
     // psi_hat(1,1) a été laissé à 0
-    // transformation de fourrier inverse de psi_hat
+    // transformation de fourier inverse de psi_hat
     psi = real(ifft(psi_hat, "nonsymmetric"))
 endfunction
 
@@ -43,6 +43,29 @@ endfunction
 // Entrée: champs de vorticité W de taille (Ny,Nx) sur un domaine de taille (Ly,Lx)
 // Sortie: Ux et Uy, vitesses solution des équations
 function [Ux,Uy]=poisson_curl_2d(W, Nx, Ny, Lx, Ly)
-    // TODO: Calculer Ux et Uy à partir de la vorticité par FFT avec l'option 'nonsymmetric'
+    // calcul des nombres d'ondes
+    kx = fftfreq(Nx, Lx)
+    ky = fftfreq(Ny, Ly)
+    // transformation de fourier de la vorticité
+    w_hat = fft(W, "nonsymmetric")
+    //calcul de Nx_hat et Ny_hat
+    Ux_hat = zeros(Ny, Nx)
+    Uy_hat = zeros(Ny, Nx)
+    for p=1:Ny
+        for q=1:Nx
+            if (p==1 & q==1) then
+                Ux_hat(p,q) = 0
+                Uy_hat(p,q) = 0
+            else
+                kxq = kx(q)
+                kyp = ky(p)
+                squares = kxq*kxq + kyp*kyp
+                Ux_hat(p,q) = w_hat(p,q)*kyp/squares
+                Uy_hat(p,q) = w_hat(p,q)*kxq/squares
+            end
+    end
+    // transformations de fourier inverses
+    Ux = real(ifft(Ux_hat))
+    Uy = real(ifft(Uy_hat))
 endfunction
 
