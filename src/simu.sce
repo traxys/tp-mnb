@@ -8,6 +8,7 @@ dx = Lx/Nx
 dy = Ly/Ny
 X = linspace(0.0, Lx*(Nx-1)/Nx, Nx)
 Y = linspace(0.0, Ly*(Ny-1)/Ny, Ny)
+isoVals = -36:6:36
 
 // Simulation parameters
 T     = 1.50
@@ -70,7 +71,7 @@ function plot_isocontours(W, figname)
     fig = scf(1)
     clf()
 	
-	contour2d(Ny, Nx, W, -36:6:36)
+	contour2d(Ny, Nx, W, isoVals)
 
     figname = sprintf("isocontours_%f.png", t)
     xs2png(fig, figname)
