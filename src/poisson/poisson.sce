@@ -63,6 +63,7 @@ function [Ux,Uy]=poisson_curl_2d(W, Nx, Ny, Lx, Ly)
                 Ux_hat(p,q) = w_hat(p,q)*kyp/squares
                 Uy_hat(p,q) = w_hat(p,q)*kxq/squares
             end
+		end
     end
     // transformations de fourier inverses
     Ux = real(ifft(Ux_hat))
