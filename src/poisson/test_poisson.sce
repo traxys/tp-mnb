@@ -1,13 +1,14 @@
 
 // Initialise f(x,y)
 function [f]=init_field(y,x)
-    // TODO: Calculer f(x,y)
+    f = sin(2*%pi*x)*sin(2*%pi*y)
 endfunction
 
 
 // Solution de référence du problème laplacien(psi(x,y)) = f(x,y)
 function [ref]=solution_field(y,x)
-    // TODO: Calculer ref(x,y)
+    alpha = 1/8/%pi/%pi
+    ref = alpha*sin(2*%pi*x)*sin(2*%pi*y)
 endfunction
 
 

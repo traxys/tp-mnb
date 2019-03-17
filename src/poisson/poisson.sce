@@ -25,7 +25,7 @@ function [psi]=poisson_2d(f, Nx, Ny, Lx, Ly)
     psi_hat = zeros(Ny, Nx)
     for p=1:Ny
         for q=1:Nx
-            psi_hat(p,q) = f_hat(p,q)/(kx^2+ky^2)// TODO 
+            psi_hat(p,q) = f_hat(p,q)/(kx(q)^2+ky(p)^2)// TODO 
         end
     end
     // psi_hat(0,0) a été laissé à 0
