@@ -60,7 +60,7 @@ function [Ux,Uy]=poisson_curl_2d(W, Nx, Ny, Lx, Ly)
                 kxq = kx(q)
                 kyp = ky(p)
                 squares = kxq*kxq + kyp*kyp
-                Ux_hat(p,q) = w_hat(p,q)*kyp/squares
+                Ux_hat(p,q) = -w_hat(p,q)*kyp/squares
                 Uy_hat(p,q) = w_hat(p,q)*kxq/squares
             end
 		end
