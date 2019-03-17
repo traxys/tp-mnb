@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 \newcommand{\dx}{\mathrm{dx}}
 \newcommand{\dt}{\mathrm{dt}}
@@ -104,6 +106,30 @@ Cette expression est strictement positive puisque $k < N_x$. Donc $\lambda_k > 0
 \subparagraph{Cholesky} Le fait que la matrice soit symetrique definie positive permet la decomposition de Cholesky. De plus posant $b_k=MU^{[k
 -1]}$, on voit qu'on est amenene a resoudre le systeme $NU^{[k]}=b_k$ avec $N$ constante. On resout donc des systemes avec la meme matrice, mais un second membre different. Cela est donc tres adapte a une decomposition de $N$ pour resoudre le systeme.
 
-\paragraph{Question 3}
+\paragraph{Question 4}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{conv_kappa_0,01.pdf}
+		\caption{$\kappa=0.01$}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{conv_kappa_0,001.pdf}
+		\caption{$\kappa=0.001$}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{conv_kappa_0,0001.pdf}
+		\caption{$\kappa=0.0001$}
+	\end{subfigure}
+	\caption{Diffusion pour differents $\kappa$}
+\end{figure}
+
+On voit qu'il y a une plus grande diffusion plus $\kappa$ est grand. Cela est coherent etant donne que $\kappa$ est le coefficient qui quantifie la diffusion. Le schema semble bien donner la reponse attendue.
+
+\paragraph{Question 5}
+
 
 \end{document}
