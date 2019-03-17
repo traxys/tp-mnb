@@ -3,8 +3,22 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+\usepackage{bm}
+
+
 \newcommand{\dx}{\mathrm{dx}}
 \newcommand{\dt}{\mathrm{dt}}
+
+\newcommand{\pd}[2]{\dfrac{\partial#1}{\partial#2}}
+\newcommand{\complex}[1]{\bm{#1}}
+\renewcommand{\vec}[1]{\bm{#1}}
+\newcommand{\I}{\complex{i}}
+\newcommand{\kx}{\complex{k_x}}
+\newcommand{\ky}{\complex{k_y}}
+\newcommand{\kxq}{\complex{k_{x,q}}}
+\newcommand{\kyp}{\complex{k_{y,p}}}
+
+
 
 \begin{document}
 
@@ -105,5 +119,29 @@ Cette expression est strictement positive puisque $k < N_x$. Donc $\lambda_k > 0
 -1]}$, on voit qu'on est amenene a resoudre le systeme $NU^{[k]}=b_k$ avec $N$ constante. On resout donc des systemes avec la meme matrice, mais un second membre different. Cela est donc tres adapte a une decomposition de $N$ pour resoudre le systeme.
 
 \paragraph{Question 3}
+
+
+\section{Resolution du problème de Poisson}
+
+\paragraph{Question 6}
+En appliquant l'equation (9) aux séries partielles, on a :
+\begin{equation}
+	\pd{S_{nm}(\psi)}{x^2}(x,y)
+    + 
+	\pd{S_{nm}(\psi)}{y^2}(x,y)
+	= S_{nm}(f)(x,y)
+    \label{eq:poisson}
+\end{equation}
+Et on obtient :
+\begin{equation*}
+    \sum_{p=-n}^{n} \sum_{q=-m}^{m} (\kxq^2 + \kyp^2) \hat{\psi}_{pq} e^{+\kyp y} e^{+\kxq x}
+	=
+		\sum_{p=-n}^{n} \sum_{q=-m}^{m}\hat{f}_{pq} e^{+\kyp y} e^{+\kxq x}
+\end{equation*}
+Comme la famille des \(((x, y)\mapsto e^{+\kyp y} e^{+\kxq x})_{(p,q)\in\mathbb N^2}\)
+est libre, on obtient : pour tout \((p,q)\in\mathbb N^2\), \((\kxq^2 + \kyp^2) \hat{\psi}_{pq} = \hat{f}_{pq}\)
+\\
+Donc, pour \((p,q)\neq(0,0)\) on trouve \(\hat{\psi}_{pq} = \frac{\hat{f}_{pq}}{\kxq^2 + \kyp^2}\)
+
 
 \end{document}
