@@ -24,11 +24,11 @@ function vort=solveur_1D(vort, Ux, Nx, kappa, dt, dx)
 	end
 	
 	//Coefficents plus que diagonaux de M
-	M_pd = (Ux*Nx/2/Nt).*(Ux*Nx/Nt-1)
+	M_pd = (Ux*Nx/2*dt).*(Ux*Nx*dt-1)
 	//Coefficents moins que diagonaux de M
-	M_ld = (Ux*Nx/2/Nt).*(Ux*Nx/Nt+1)
+	M_ld = (Ux*Nx/2*dt).*(Ux*Nx*dt+1)
 	//Coefficients diagonaux de M
-	M_d = 1 - Ux^2*Nx^2/Nt^2
+	M_d = 1 - Ux^2*Nx^2*dt^2
 
 	M = zeros(Nx, Nx)
 	M(1,1) = M_d(1)

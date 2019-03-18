@@ -8,12 +8,12 @@ dx = Lx/Nx
 dy = Ly/Ny
 X = linspace(0.0, Lx*(Nx-1)/Nx, Nx)
 Y = linspace(0.0, Ly*(Ny-1)/Ny, Ny)
-isoVals = -36:6:36
+isoVals = -70:10:70
 
 // Simulation parameters
 T     = 1.50
-nu    = 1e-4
-rho   = 30.0
+nu    = 0.5*1e-4
+rho   = 100.0
 delta = 0.05
 
 // Initialize vorticity
@@ -71,9 +71,25 @@ function plot_isocontours(W, figname)
     fig = scf(1)
     clf()
 	
-	contour2d(Ny, Nx, W, isoVals)
+	contourf((1:Ny)/Ny, (1:Nx)/Nx, W, isoVals)
 
     figname = sprintf("isocontours_%f.png", t)
+    xs2png(fig, figname)
+endfunction
+
+function plot_vector_field(Ux, Uy, figname)
+    if (t~=0.80) & (t~=1.20) then
+        return
+    end
+    
+    fig = scf(2)
+    clf()
+	
+	y_range = (1:10:Ny)
+	x_range = (1:10:Nx)
+	champ(y_range/Ny, x_range/Nx, Uy(y_range, x_range), Ux(y_range,x_range))
+
+    figname = sprintf("speed_field_%f.png", t)
     xs2png(fig, figname)
 endfunction
 
@@ -94,9 +110,9 @@ t = 0.0
 ite = 0
 W = feval(Y, X, init_vorticity)
 while t<T
-    // TODO: compute velocity from vorticity
+	[Ux, Uy] = poisson_curl_2d(W, Nx, Ny, Lx, Ly)
 
-    dt=min(calcul_dt(cx,dx),calcul_dt(cy,dy));
+    dt=min(calcul_dt(Ux,dx),calcul_dt(Uy,dy));
 	if (t<0.80) & (t+dt>0.80) then
         dt = 0.80-t
     elseif (t<1.20) & (t+dt>1.20) then
@@ -108,8 +124,9 @@ while t<T
     printf("\niteration %i, from t=%f to t=%f", ite, t, t+dt)
     plot_fields(W,Ux,Uy,ite)
     plot_isocontours(W,t)
+	plot_vector_field(Ux, Uy, t)
     
-    solveur_2D(W, Ux, Uy, Nx, Ny, nu, dt, dx, dy)
+    W = solveur_2D(W, Ux, Uy, Nx, Ny, nu, dt, dx, dy)
  
 	t = t + dt
 	ite = ite + 1
