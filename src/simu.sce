@@ -2,8 +2,8 @@
 // Domain size and discretization
 Lx = 1.0
 Ly = 1.0
-Nx = 128
-Ny = 128
+Nx = 256
+Ny = 256
 dx = Lx/Nx
 dy = Ly/Ny
 X = linspace(0.0, Lx*(Nx-1)/Nx, Nx)
@@ -12,8 +12,8 @@ isoVals = -70:10:70
 
 // Simulation parameters
 T     = 1.50
-nu    = 0.5*1e-4
-rho   = 100.0
+nu    = 1e-4
+rho   = 30.0
 delta = 0.05
 
 // Initialize vorticity
